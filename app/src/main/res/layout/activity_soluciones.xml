@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvSoluciones"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Aquí se mostrarán las soluciones generadas por la IA"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/btnRecomponerme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logré recomponerme"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white"/>
+
+    <Button
+        android:id="@+id/btnAyuda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No puedo, necesito ayuda"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>
