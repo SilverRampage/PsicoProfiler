@@ -58,5 +58,7 @@ class RegistroActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
             }
         }
+
+
     }
 }
