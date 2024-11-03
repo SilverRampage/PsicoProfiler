@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PsycoProfiler</string>
+    <string name="error_fields">Por favor, ingresa todos los campos</string>
+    <string name="login_success">Inicio de sesión exitoso</string>
+    <string name="error_login">Error en el inicio de sesión: %1$s</string> <!-- %1$s es un placeholder para el mensaje de error -->
+    <string name="network_error">Error de red: %1$s</string>
 </resources>
