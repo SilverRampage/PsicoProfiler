@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import kotlinx.coroutines.*
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -19,11 +19,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var btnRegister: Button
 
-    // Reutilizar la instancia de OkHttpClient
     private val client by lazy { OkHttpClient() }
-
-    // Constante de la URL
-    private val url = "http://10.0.2.2:5000/api/users/login"
+    private val url = "http://10.0.2.2:5000/login"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,18 +31,15 @@ class LoginActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.btnLogin)
         btnRegister = findViewById(R.id.btnRegister)
 
-        // Verificar si ya está logueado el usuario
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        val isLoggedIn = sharedPref.getBoolean("isLoggedIn", false)
+        val userId = sharedPref.getInt("Id", -1) // Cambiar a getInt y proporcionar un valor predeterminado
 
-        if (isLoggedIn) {
-            // Si el usuario ya está logueado, redirigir a la siguiente actividad
+        if (userId != -1) { // Verifica si el usuario ya está registrado
             val intent = Intent(this, ConfiguracionBotonActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        // Boton de inicio de sesion
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
@@ -57,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Boton para ir a la ventana de registro
         btnRegister.setOnClickListener {
             val intent = Intent(this, RegistroActivity::class.java)
             startActivity(intent)
@@ -65,20 +58,18 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // Valida si el correo es correcto
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    // Funcion para inicio de sesion
     private fun iniciarSesion(email: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val loginData = JSONObject().apply {
                 put("email", email)
-                put("password", password)
+                put("contrasena", password)
             }
 
-            val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), loginData.toString())
+            val body = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), loginData.toString())
             val request = Request.Builder()
                 .url(url)
                 .post(body)
@@ -88,12 +79,18 @@ class LoginActivity : AppCompatActivity() {
                 val response = client.newCall(request).execute()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
+                        val responseData = response.body?.string() // Obtiene el cuerpo de la respuesta como String
+                        val jsonResponse = JSONObject(responseData) // Convierte el String a JSON
+
+                        // Extrae el objeto 'usuario' y luego el campo 'Id' dentro de 'usuario'
+                        val usuarioObject = jsonResponse.getJSONObject("usuario")
+                        val userId = usuarioObject.getInt("Id")
 
                         // Guardar el estado de sesión en SharedPreferences
                         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
                         val editor = sharedPref.edit()
-                        // Guardar un flag de sesión o un token
                         editor.putBoolean("isLoggedIn", true)
+                        editor.putInt("Id", userId) // Guardar el ID del usuario como Int
                         editor.apply()
 
                         Toast.makeText(this@LoginActivity, getString(R.string.login_success), Toast.LENGTH_SHORT).show()

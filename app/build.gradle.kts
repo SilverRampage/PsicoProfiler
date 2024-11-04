@@ -7,6 +7,8 @@ android {
     namespace = "com.example.psycoprofiler"
     compileSdk = 34
 
+
+
     defaultConfig {
         applicationId = "com.example.psycoprofiler"
         minSdk = 24

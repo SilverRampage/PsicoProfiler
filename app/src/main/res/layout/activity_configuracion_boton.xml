@@ -9,7 +9,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Configurar Botón de Emergencia"
+        android:text="Configuracion de permiso"
         android:textSize="24sp"
         android:textColor="@color/purple_500"
         android:layout_gravity="center_horizontal" />
@@ -18,7 +18,14 @@
         android:id="@+id/btnConfigurar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Configurar Botón"
+        android:text="Configurar Permiso"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white"/>
+    <Button
+        android:id="@+id/testBtnFisico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Como usar el boton Fisico?"
         android:backgroundTint="@color/purple_500"
         android:textColor="@android:color/white"/>
 
