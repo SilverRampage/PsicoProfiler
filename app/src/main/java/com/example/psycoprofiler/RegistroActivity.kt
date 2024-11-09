@@ -21,7 +21,7 @@ class RegistroActivity : AppCompatActivity() {
     private val client = OkHttpClient()
 
     // Definir constantes para URL y MediaType
-    private val url = "http://10.0.2.2:5000/api/users/register"
+    private val url = "http://18.118.234.197:5000/api/users/register"
     private val JSON = "application/json; charset=utf-8".toMediaType()
 
     private lateinit var etNombre: EditText

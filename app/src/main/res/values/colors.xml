@@ -12,4 +12,12 @@
     <color name="dark_purple">#673AB7</color>
     <color name="gray_btn2">#758694</color>
 
+
+        <!-- Colores personalizados para el diseño -->
+        <color name="background">#9a57ff</color> <!-- Color claro para el fondo -->
+        <color name="purple_pastel">#B39DDB</color> <!-- Morado pastel para "No me funciona" -->
+        <color name="green_friendly">#8BC34A</color> <!-- Verde amigable para "Logré recomponerme" -->
+        <color name="red_support">#FFCDD2</color> <!-- Rojo claro/rosa para "No puedo, necesito ayuda" -->
+
+
 </resources>

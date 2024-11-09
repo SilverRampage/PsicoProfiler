@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnRegister: Button
 
     private val client by lazy { OkHttpClient() }
-    private val url = "http://10.0.2.2:5000/login"
+    private val url = "http://18.118.234.197:5000/login"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -3,42 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/background">
 
-    <TextView
+    <!-- Text View for IA Solutions -->
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tvSoluciones"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Aquí se mostrarán las soluciones generadas por la IA"
-        android:textSize="18sp"
-        android:background="@android:color/background_light"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="16dp"
         android:padding="8dp"
         android:scrollbars="vertical"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="16dp"/>
+        android:elevation="4dp"/>
 
-    <Button
-        android:id="@+id/btnTop3Soluciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No me funciona"
-        android:backgroundTint="@color/purple_500"
-        android:textColor="@android:color/white"/>
+    <!-- Button for 'Logré recomponerme' -->
     <Button
         android:id="@+id/btnRecomponerme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Logré recomponerme"
-        android:backgroundTint="@color/purple_500"
-        android:textColor="@android:color/white"/>
+        android:backgroundTint="#8BC34A"
 
+        android:layout_marginBottom="8dp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button"/>
+
+    <!-- Button for 'No me funciona' -->
+    <Button
+        android:id="@+id/btnTop3Soluciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No me funciona"
+        android:backgroundTint="#B39DDB"
+
+        android:layout_marginBottom="8dp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button"/>
+
+    <!-- Button for 'No puedo, necesito ayuda' -->
     <Button
         android:id="@+id/btnAyuda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No puedo, necesito ayuda"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:textColor="@android:color/white"/>
+        android:backgroundTint="#FFCDD2"
+
+        android:padding="12dp"
+        android:background="@drawable/rounded_button"/>
 
 </LinearLayout>

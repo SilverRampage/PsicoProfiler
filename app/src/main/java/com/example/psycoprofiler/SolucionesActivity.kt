@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.psycoprofiler.adapters.SolucionesAdapter
 import kotlinx.coroutines.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -15,26 +18,27 @@ import java.io.IOException
 
 class SolucionesActivity : AppCompatActivity() {
 
-    private lateinit var tvSoluciones: TextView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var btnRecomponerme: Button
     private lateinit var btnAyuda: Button
     private lateinit var btnTop3Soluciones: Button
 
     private val client = OkHttpClient()
-    private val apiUrl = "http://10.0.2.2:5000" // Cambia esto por la URL de tu API
+    private val apiUrl = "http://18.118.234.197:5000"
     private val urlTop3Soluciones = apiUrl + "/gettop3soluciones"
-    private val urlSolucionUnica = apiUrl + "/soluciones"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_soluciones)
 
-        tvSoluciones = findViewById(R.id.tvSoluciones)
+        recyclerView = findViewById(R.id.tvSoluciones)  // Asegúrate de que este ID sea correcto
         btnRecomponerme = findViewById(R.id.btnRecomponerme)
         btnAyuda = findViewById(R.id.btnAyuda)
         btnTop3Soluciones = findViewById(R.id.btnTop3Soluciones)
 
-        // Configurar el botón para obtener soluciones
+        val layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = layoutManager
+
         btnTop3Soluciones.setOnClickListener {
             obtenerSoluciones()
         }
@@ -45,37 +49,32 @@ class SolucionesActivity : AppCompatActivity() {
         }
 
         btnAyuda.setOnClickListener {
-            // Aquí enviarás el mensaje de alerta con los datos del usuario y ubicación
             enviarAlerta()
         }
     }
 
     private fun obtenerSoluciones() {
-        // Obtener el ID del usuario de SharedPreferences
         val sharedPref = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
-        val userId = sharedPref.getInt("Id", -1) // Cambiado a getInt y valor predeterminado -1
+        val userId = sharedPref.getInt("Id", -1)
 
-        if (userId != -1) { // Verifica si el Id fue encontrado
+        if (userId != -1) {
             CoroutineScope(Dispatchers.IO).launch {
-                // Crear el objeto JSON con el ID del usuario
                 val requestData = JSONObject().apply {
                     put("Id", userId)
                 }
 
                 val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), requestData.toString())
                 val request = Request.Builder()
-                    .url(urlTop3Soluciones) // Usar la URL sin agregar el ID en la URL
-                    .post(body) // Enviar el cuerpo JSON
+                    .url(urlTop3Soluciones)
+                    .post(body)
                     .build()
 
                 try {
                     val response = client.newCall(request).execute()
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
-                            // Obtener la respuesta y actualizar el TextView
                             val responseData = response.body?.string()
                             if (!responseData.isNullOrEmpty()) {
-                                // Asegurarse de que el JSON contenga el array "soluciones"
                                 try {
                                     val jsonResponse = JSONObject(responseData)
                                     if (jsonResponse.has("soluciones")) {
@@ -103,18 +102,20 @@ class SolucionesActivity : AppCompatActivity() {
         }
     }
 
-
     private fun mostrarSoluciones(soluciones: JSONArray) {
-        val solucionesList = StringBuilder()
+        val solucionesList = mutableListOf<String>()
         for (i in 0 until soluciones.length()) {
-            solucionesList.append("Solución ${i + 1}: ${soluciones.getString(i)}\n")
+            solucionesList.add("Solución ${i + 1}: ${soluciones.getString(i)}")
         }
-        tvSoluciones.text = solucionesList.toString()
+
+        // Configura el Adapter del RecyclerView
+        val adapter = SolucionesAdapter(solucionesList)
+        recyclerView.adapter = adapter
     }
 
     private fun enviarAlerta() {
-        // Simula el envío de una alerta
         Toast.makeText(this, "Alerta enviada con tus datos y ubicación", Toast.LENGTH_SHORT).show()
         finish()
     }
 }
+
