@@ -12,21 +12,41 @@
         android:text="Configuracion de permiso"
         android:textSize="24sp"
         android:textColor="@color/purple_500"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginBottom="8dp"
+        android:padding="12dp"
+        android:layout_gravity="center_horizontal"
+        />
 
     <Button
         android:id="@+id/btnConfigurar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Configurar Permiso"
+        android:text="Permiso para Sobreponer"
         android:backgroundTint="@color/purple_500"
-        android:textColor="@android:color/white"/>
+        android:layout_marginBottom="8dp"
+        android:padding="12dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/rounded_button"/>
+    <Button
+        android:id="@+id/accessibility_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Configurar Accesibilidad"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="8dp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button"/>
     <Button
         android:id="@+id/testBtnFisico"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Como usar el boton Fisico?"
+        android:text="Configurar Boton Fisico"
         android:backgroundTint="@color/purple_500"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="8dp"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button"/>
+
 
 </LinearLayout>

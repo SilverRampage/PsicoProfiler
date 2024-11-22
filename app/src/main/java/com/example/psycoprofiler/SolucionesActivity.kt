@@ -23,9 +23,11 @@ class SolucionesActivity : AppCompatActivity() {
     private lateinit var btnAyuda: Button
     private lateinit var btnTop3Soluciones: Button
 
+
     private val client = OkHttpClient()
     private val apiUrl = "http://18.118.234.197:5000"
     private val urlTop3Soluciones = apiUrl + "/gettop3soluciones"
+    private val urlSoluciones = apiUrl + "/soluciones"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +67,7 @@ class SolucionesActivity : AppCompatActivity() {
 
                 val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), requestData.toString())
                 val request = Request.Builder()
-                    .url(urlTop3Soluciones)
+                    .url(urlSoluciones)
                     .post(body)
                     .build()
 

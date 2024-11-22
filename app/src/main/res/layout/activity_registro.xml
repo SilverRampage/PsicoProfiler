@@ -147,7 +147,10 @@
                     android:text="Registrarse"
                     android:backgroundTint="@color/purple_500"
                     android:textColor="@android:color/white"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_button"/>
 
                 <Button
                     android:id="@+id/btnReturn"
@@ -155,7 +158,10 @@
                     android:layout_height="wrap_content"
                     android:text="Regresar"
                     android:backgroundTint="@color/gray_btn2"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="8dp"
+                    android:padding="12dp"
+                    android:background="@drawable/rounded_button"/>
 
             </LinearLayout>
 

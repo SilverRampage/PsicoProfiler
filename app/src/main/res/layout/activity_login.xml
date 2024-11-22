@@ -78,8 +78,10 @@
                     android:layout_height="wrap_content"
                     android:text="Iniciar Sesión"
                     android:backgroundTint="@color/purple_500"
+                    android:padding="12dp"
                     android:textColor="@android:color/white"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/rounded_button"/>
 
                 <Button
                     android:id="@+id/btnRegister"
@@ -87,7 +89,10 @@
                     android:layout_height="wrap_content"
                     android:text="Registrarse"
                     android:backgroundTint="@android:color/darker_gray"
-                    android:textColor="@android:color/white" />
+                    android:padding="12dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/rounded_button"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
