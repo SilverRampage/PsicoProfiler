@@ -22,6 +22,7 @@ class VolumeButtonAccessibilityService : AccessibilityService() {
     private var countDownTimer: CountDownTimer? = null
     private val holdDuration = 5000L // 5 segundos
     private val notificationChannelId = "volume_service_channel"
+    private var timeRemaining: Long = holdDuration
 
     override fun onServiceConnected() {
         // Crear el canal de notificación
@@ -37,42 +38,62 @@ class VolumeButtonAccessibilityService : AccessibilityService() {
     }
 
     override fun onKeyEvent(event: KeyEvent): Boolean {
+        // Detecta el botón de bajar volumen específicamente
         if (event.keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             when (event.action) {
                 KeyEvent.ACTION_DOWN -> {
-                    Log.d("VolumeButton", "Tecla de volumen presionada")
+                    Log.d("VolumeButton", "Botón de bajar volumen presionado")
                     if (!volumeButtonPressed) {
                         volumeButtonPressed = true
-                        startHoldTimer()
+                        startHoldTimer() // Inicia el temporizador
+                        showPressAlert() // Muestra alerta de que el botón está presionado
                     }
                 }
                 KeyEvent.ACTION_UP -> {
-                    Log.d("VolumeButton", "Tecla de volumen liberada")
+                    Log.d("VolumeButton", "Botón de bajar volumen liberado")
                     volumeButtonPressed = false
-                    resetTimer()
+                    resetTimer() // Resetea el temporizador
                 }
             }
-            return true
+            return true // Indica que este evento fue manejado
         }
-        return super.onKeyEvent(event)
+        return super.onKeyEvent(event) // Otros eventos se manejan normalmente
     }
+
+
+    private fun showPressAlert() {
+        Toast.makeText(
+            this,
+            "Botón de bajar volumen presionado. Manténgalo presionado para activar la alerta.",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     override fun onInterrupt() {
         // Método obligatorio para servicios de accesibilidad
     }
 
     private fun startHoldTimer() {
-        countDownTimer = object : CountDownTimer(holdDuration, 100) {
-            override fun onTick(millisUntilFinished: Long) {}
+        countDownTimer = object : CountDownTimer(holdDuration, 1000) { // Conteo cada segundo
+            override fun onTick(millisUntilFinished: Long) {
+                timeRemaining = millisUntilFinished / 1000 // Convertir a segundos
+                Log.d("VolumeButton", "Segundos restantes: $timeRemaining")
+            }
 
             override fun onFinish() {
                 if (volumeButtonPressed) {
-                    val intent = Intent(this@VolumeButtonAccessibilityService, SolucionesActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
+                    triggerAlert() // Acciona si el botón fue mantenido por 5 segundos
                 }
-                resetTimer()
+                resetTimer() // Reinicia el estado del temporizador
             }
         }.start()
+    }
+
+    // Iniciar una actividad o ejecutar una acción
+    private fun triggerAlert() {
+        val intent = Intent(this, SolucionesActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
     }
 
     private fun resetTimer() {

@@ -80,10 +80,6 @@ class ConfiguracionBotonActivity : AppCompatActivity() {
         // Inicia el servicio para monitorear el botón físico
         val intent = Intent(this, VolumeButtonAccessibilityService::class.java)
         ContextCompat.startForegroundService(this, intent)
-
-        // Redirige a la pantalla de soluciones
-
-        finish()
     }
 
     private fun abrirSolucionesManual(){
