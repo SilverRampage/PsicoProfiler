@@ -128,16 +128,22 @@
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Padecimiento Input -->
-                <com.google.android.material.textfield.TextInputLayout
+                <!-- Padecimiento Spinner -->
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Padecimiento">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etPadecimiento"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:text="Padecimiento:"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/dark_purple" />
+
+                <Spinner
+                    android:id="@+id/spinnerPadecimiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:layout_marginTop="4dp" />
+
 
                 <!-- Register Button -->
                 <Button
