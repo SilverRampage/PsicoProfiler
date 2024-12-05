@@ -26,17 +26,17 @@ class ConfiguracionBotonActivity : AppCompatActivity() {
         setContentView(R.layout.activity_configuracion_boton)
 
         val btnConfigurar: Button = findViewById(R.id.btnConfigurar)
-        val btnTestFisico: Button = findViewById(R.id.testBtnFisico)
+
         val accessibilityButton: Button = findViewById(R.id.accessibility_button)
 
 
         // Verifica si el permiso de superposición está activo
         if (Settings.canDrawOverlays(this)) {
             btnConfigurar.visibility = Button.GONE
-            btnTestFisico.visibility = Button.VISIBLE
+
         } else {
             btnConfigurar.visibility = Button.VISIBLE
-            btnTestFisico.visibility = Button.GONE
+
         }
 
         // Configura el permiso de superposición
@@ -46,14 +46,11 @@ class ConfiguracionBotonActivity : AppCompatActivity() {
                 startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE)
             } else {
                 showOverlayNotification()
-                toggleButtonsVisibility(btnConfigurar, btnTestFisico)
+                toggleButtonsVisibility(btnConfigurar)
             }
         }
 
-        // Configura el botón físico
-        btnTestFisico.setOnClickListener {
-            configurarBotonFisico()
-        }
+
 
         accessibilityButton.setOnClickListener {
             openAccessibilitySettings()
@@ -66,14 +63,13 @@ class ConfiguracionBotonActivity : AppCompatActivity() {
             Toast.makeText(this, "Permiso de superposición concedido", Toast.LENGTH_SHORT).show()
             showOverlayNotification()
             val btnConfigurar: Button = findViewById(R.id.btnConfigurar)
-            val btnTestFisico: Button = findViewById(R.id.testBtnFisico)
-            toggleButtonsVisibility(btnConfigurar, btnTestFisico)
+
+            toggleButtonsVisibility(btnConfigurar)
         }
     }
 
-    private fun toggleButtonsVisibility(configurar: Button, testFisico: Button) {
+    private fun toggleButtonsVisibility(configurar: Button) {
         configurar.visibility = Button.GONE
-        testFisico.visibility = Button.VISIBLE
     }
 
     private fun configurarBotonFisico() {

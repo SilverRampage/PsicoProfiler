@@ -35,7 +35,7 @@
         android:id="@+id/btnTop3Soluciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dame otra solucion"
+        android:text="Necesito una solucion"
         android:backgroundTint="#B39DDB"
         android:layout_marginBottom="8dp"
         android:padding="12dp"

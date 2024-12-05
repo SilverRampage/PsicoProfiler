@@ -64,7 +64,7 @@ class VolumeButtonAccessibilityService : AccessibilityService() {
     private fun showPressAlert() {
         Toast.makeText(
             this,
-            "Botón de bajar volumen presionado. Manténgalo presionado para activar la alerta.",
+            "Botón presionado, Manténgalo para activar la App.",
             Toast.LENGTH_SHORT
         ).show()
     }
